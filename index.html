@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Arithmetics | Khan Academy </title>
+
+<link rel="icon" href="math.png">
+
+  <style>
+ 
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: white;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #launcher {
+      text-align: center;
+       
+      
+    }
+
+    button {
+      padding: 10px 1px;
+      font-size: 22px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      background: green;
+      color: white;
+      margin-top :20px;
+      display: block; 
+  width: 100%;
+  
+      
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    #app {
+      display: none;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Launcher screen -->
+  <div id="launcher">
+       <marquee style="width:75%;"> slide the white ball to learn math.</marquee>
+    
+     <br>
+          
+<div class="wrapper">
+<div class="drag-switch" id="switch">
+  <div class="track"></div>
+  <div class="label">> > > > ◯</div>
+  <div class="handle" id="handle"></div>
+</div>
+</div>
+          
+     <button onclick="start2()">Download Math work</button>
+          
+       
+           <a id="opt1" style="color:gray; cursor:pointer; font-size:10px;"> press here if sliders not working  </a> 
+
+       </div>  
+     
+          
+          
+<script>
+// First button: Open example.com in about:blank
+document.getElementById("opt1").addEventListener("click", () => {
+  const win = window.open("about:blank", "_blank");
+
+  if (!win) {
+    alert("Pop-up blocked! Please allow pop-ups for this site.");
+    return;
+  }
+
+  win.document.write(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+      
+      <title>IXL | Dashboard</title>
+
+        <style>
+          html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background: black;
+            color: white;
+          }
+          iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
+          }
+        </style>
+      </head>
+      <body>
+        <iframe src="https://liveschool.shshnsjsue.workers.dev"></iframe>
+      </body>
+    </html>
+  `);
+
+  win.document.close(); // Finalize the document write
+});
+
+</script>   
+</div>
+  </div>
+  <div id="app">
+    <iframe src="https://liveschool.shshnsjsue.workers.dev/"></iframe>
+  </div>
+
+
+
+
+
+  <script>
+    function startApp() {
+      document.getElementById("launcher").style.display = "none";
+      document.getElementById("app").style.display = "block";
+    }
+    
+    function start2() {
+        window.open("https://github.com/Hubertsthings/message-updater/releases/tag/Downloadable", "_blank");
+    }
+    
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  padding:40px;
+}
+
+/* LONGER SWITCH */
+.drag-switch{
+  position: relative;
+  width: 220px;
+  height: 70px;
+  background: #2c2c2c;
+  border-radius: 50px;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* TRACK */
+.track{
+  position:absolute;
+  inset:0;
+  border-radius:50px;
+  background: linear-gradient(to right,#444,#333);
+}
+
+/* DRAG HANDLE */
+.handle{
+  position:absolute;
+  width:60px;
+  height:60px;
+  left:5px;
+  top:5px;
+  border-radius:100%;
+  background:white;
+  cursor:grab;
+  transition:
+    left 0.50s ease-out,
+    transform 0.15s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
+
+/* Slight stretch while dragging */
+.handle.dragging{
+  transform: scale(1.09);
+  cursor:grabbing;
+}
+
+/* Text */
+.label{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  font-size:45px;
+  pointer-events:none;
+  color: grey;
+}
+
+
+
+
+.wrapper {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:15vh;
+}
+</style>
+
+
+<script>
+function runCode(){
+  alert("Math Work Loading!");
+}
+
+const handle = document.getElementById("handle");
+const slider = document.getElementById("switch");
+
+let dragging = false;
+let startX = 0;
+let currentX = 5;
+
+const maxX = 155; // distance handle can move
+
+handle.addEventListener("mousedown", startDrag);
+document.addEventListener("mousemove", drag);
+document.addEventListener("mouseup", stopDrag);
+
+handle.addEventListener("touchstart", startDrag);
+document.addEventListener("touchmove", drag);
+document.addEventListener("touchend", stopDrag);
+
+function startDrag(e){
+  dragging = true;
+  handle.classList.add("dragging");
+
+  startX = getX(e) - currentX;
+}
+function drag(e){
+  if(!dragging) return;
+
+  e.preventDefault();
+
+  let x = getX(e) - startX;
+
+  const minX = 5;
+  const maxX = 155; // track width - handle width - padding
+
+  // RESISTANCE BEYOND EDGE (optional feel)
+  if (x > maxX) {
+    x = maxX + (x - maxX) * 0.2;
+  }
+
+  // HARD CLAMP so it never visually escapes
+  x = Math.max(minX, Math.min(x, maxX));
+
+  currentX = x;
+  handle.style.left = x + "px";
+}
+
+
+function stopDrag(){
+  if(!dragging) return;
+
+  dragging = false;
+  handle.classList.remove("dragging");
+
+  /* TRIGGER if dragged far enough */
+  if(currentX >= 130){
+
+    /* Animate to end */
+    handle.style.left = maxX + "px";
+
+    setTimeout(() => {
+
+      /* Trigger JS */
+      document.getElementById("opt1").click();
+
+      /* RESET BACK */
+      handle.style.transition = "left 0.5s ease";
+      handle.style.left = "5px";
+
+      currentX = 5;
+
+    }, 150);
+
+  } else {
+
+    /* Snap back if not far enough */
+    handle.style.left = "5px";
+    currentX = 5;
+  }
+}
+
+function getX(e){
+  return e.touches ? e.touches[0].clientX : e.clientX;
+}
+</script>
+
+</body>
+</html>
+

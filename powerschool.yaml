@@ -1,0 +1,13 @@
+annotations:
+  shipitcli.com/config:
+    commands: {}
+    convert_redirects: true
+    port: 8080
+    sws_version: 2.38.0
+  shipitcli.com/provider: staticfile
+  shipitcli.com/version: 0.19.8
+app_id: da_R36ILtlUZ71J
+kind: wasmer.io/App.v0
+name: powerschool
+owner: hubertsthings
+package: sha256:ba687ff9a75987f2a8ab52d176154751d73fc9cba2c7b42861f8370eb035906a
